@@ -2,23 +2,24 @@
 #include <stdlib.h>
 #include <ctime>
 #define stnu(x) x-'0'
-//Á´±í 
+//é“¾è¡¨ 
 typedef struct node{	
 		char str;
 		node*next;
 	}node;
-//¾ØÕó 
+//çŸ©é˜µ 
 typedef struct {
-    int length;			//ĞĞÊıÎª³¤£¬ÁĞÊıÎª¿í 
+    int length;			//è¡Œæ•°ä¸ºé•¿ï¼Œåˆ—æ•°ä¸ºå®½ 
     int width;
     int **matrix;
 } Matrix;
+//æ•°ç»„ï¼Œè‡ªå¸¦é•¿åº¦ï¼Œæ–¹ä¾¿æ“ä½œã€‚
 typedef struct{
 	int size;
 	int* arr;
 }Arr;
 
-// Îª¾ØÕó·ÖÅäÄÚ´æ 
+// ä¸ºçŸ©é˜µåˆ†é…å†…å­˜ 
 int **allocateMatrix(int length, int width) {
     int **matrix = (int **)malloc(length * sizeof(int *));
     for (int i = 0; i < length; i++) {
@@ -27,7 +28,7 @@ int **allocateMatrix(int length, int width) {
     return matrix;
 }
 
-//½«¾ØÕóÔªËØ³õÊ¼»¯ÎªÄ³Ò»ÔªËØ 
+//å°†çŸ©é˜µå…ƒç´ åˆå§‹åŒ–ä¸ºæŸä¸€å…ƒç´  
 void initalizeMatrix(int a,Matrix* mat){
 	for (int i=0;i<mat->length;i++){
 		for(int j=0;j<mat->width;j++){
@@ -36,7 +37,7 @@ void initalizeMatrix(int a,Matrix* mat){
 	}
 }
 
-//Éú³ÉÒ»¸ö¾ØÕó 
+//ç”Ÿæˆä¸€ä¸ªçŸ©é˜µ 
 Matrix* genmat(int length,int width){ 
 	Matrix* mat=(Matrix*)malloc(sizeof(Matrix));
 	mat->length=length;
@@ -46,7 +47,7 @@ Matrix* genmat(int length,int width){
 	return mat;
 }
 
-//´òÓ¡¾ØÕó 
+//æ‰“å°çŸ©é˜µ 
 void printm(Matrix* mat){
 	for (int i=0;i<mat->length;i++){
 		for(int j=0;j<mat->width;j++){
@@ -56,7 +57,7 @@ void printm(Matrix* mat){
 	}
 }
 
-//ĞĞ¡ÁÁĞ 
+//è¡ŒÃ—åˆ— 
 int rmc(Matrix*A,int a,Matrix*B,int b){
 	int sum=0;
 	for (int i=0;i<A->width;i++){
@@ -65,10 +66,10 @@ int rmc(Matrix*A,int a,Matrix*B,int b){
 	return sum;
 }
 
-//¾ØÕó³Ë·¨ 
+//çŸ©é˜µä¹˜æ³• 
 Matrix* matmul(Matrix*A,Matrix*B){
 	if(A->length!=B->width){
-		printf("¾ØÕóÎ¬¶È²»Æ¥Åä"); 
+		printf("çŸ©é˜µç»´åº¦ä¸åŒ¹é…"); 
 		 return NULL;
 	}
 	Matrix *C=genmat(A->length,B->width);
@@ -90,7 +91,7 @@ Matrix* kmatmul(int k,Matrix*A){
 	return C;
 }
 
-//Ëæ»úÉú³É¾ØÕó 
+//éšæœºç”ŸæˆçŸ©é˜µ 
 Matrix* randm(int length,int width ){
 	srand(time(NULL));
 	Matrix*C=genmat(length,width);
@@ -102,7 +103,7 @@ Matrix* randm(int length,int width ){
 	return C;
 }
 
-//Ö¸¶¨·¶Î§Éú³É¾ØÕó 
+//æŒ‡å®šèŒƒå›´ç”ŸæˆçŸ©é˜µ 
 Matrix* randi(int rows, int cols, int a, int b) {
     int i, j;
     srand(time(0)); 
@@ -117,7 +118,7 @@ Matrix* randi(int rows, int cols, int a, int b) {
 	return C;
 }
 
-//´òÓ¡Á´±í 
+//æ‰“å°é“¾è¡¨ 
 void printl(node*list){
 	node*ptr=list->next ;
 	while(ptr!=NULL){
@@ -126,7 +127,7 @@ void printl(node*list){
 	}
 } 
 
-//¼ÆËãÁ´±í³¤¶È 
+//è®¡ç®—é“¾è¡¨é•¿åº¦ 
 int lenlist(node*list){
 	node*ptr=list->next;
 	int cnt=1;
@@ -136,7 +137,7 @@ int lenlist(node*list){
 	}
 	return cnt;
 }
-//ÊÍ·ÅÁ´±íÄÚ´æ 
+//é‡Šæ”¾é“¾è¡¨å†…å­˜ 
 void FreeList(node* head) {
     node* current = head;
     node* next;
@@ -147,7 +148,7 @@ void FreeList(node* head) {
     }
     head = NULL;
 }
-//ÊÍ·Å¾ØÕóÄÚ´æ
+//é‡Šæ”¾çŸ©é˜µå†…å­˜
 void Freemat(Matrix*mat){
 	for(int j=0;j<mat->length;j++){
                 free(mat->matrix[j]);
@@ -155,7 +156,7 @@ void Freemat(Matrix*mat){
             free(mat->matrix);
             free(mat);
 } 
-//¸´ÖÆ¾ØÕó 
+//å¤åˆ¶çŸ©é˜µ 
 Matrix* awritem(Matrix*mat,int** num){
 	for(int i=0;i<mat->length;i++){
 		for(int j=0;j<mat->width;j++){
@@ -165,7 +166,7 @@ Matrix* awritem(Matrix*mat,int** num){
 	return mat;
 }
 
-//¾ØÕóÇĞÆ¬ 
+//çŸ©é˜µåˆ‡ç‰‡ 
 Matrix* matsli(Matrix*ori,Arr*a,Arr*b) {
 	int length=a->size;
 	int width=b->size;
@@ -178,7 +179,7 @@ Matrix* matsli(Matrix*ori,Arr*a,Arr*b) {
 	return mat;
 }
 
-//Éú³É0£¬1£¬2¡¤¡¤¡¤µÄÊı×é 
+//ç”Ÿæˆ0ï¼Œ1ï¼Œ2Â·Â·Â·çš„æ•°ç»„ 
 Arr*randa(int length){
 	Arr*a=(Arr*)malloc(sizeof(Arr));
 	a->size=length;
@@ -189,14 +190,14 @@ Arr*randa(int length){
 	return a; 
 }
 
-//ÊäÈë¾ØÕó 
+//è¾“å…¥çŸ©é˜µ 
 Matrix*scanm(){
 	node *list=(node*)malloc(sizeof(node));
 	list->next=NULL;
 	node *last=(node*)malloc(sizeof(node));
 	last->next=NULL;
 	char c;
-	int sta=0;//Ö¸Ê¾ÊÇ·ñÍË³ö 
+	int sta=0;//æŒ‡ç¤ºæ˜¯å¦é€€å‡º 
 	int sem=0;
 	do{
 		c=getchar();
@@ -204,7 +205,7 @@ Matrix*scanm(){
 			sem++;
 		}
 		node*Node=(node*)malloc(sizeof(node));
-		if(sta==0){		//ÀûÓÃÁ´±í´æ´¢ÊäÈë 
+		if(sta==0){		//åˆ©ç”¨é“¾è¡¨å­˜å‚¨è¾“å…¥ 
 			list->next=Node;
 		}
 		Node->str=c;
@@ -218,15 +219,15 @@ Matrix*scanm(){
 	//printl(list);//test
 	// 
 	sta=0;
-	int cnt=0,i=0,j=0,width=0,length=0;//sta1Ö¸Ê¾ÊÇ·ñÓ¦¸ÃÍË³öÑ­»· 
-	Matrix* num=genmat(sem+1,lenlist(ptr)/(sem+1));//Éú³ÉÒ»¸ö×ã¹»´óµÄÊı×é´æ´¢Êı×Ö 
+	int cnt=0,i=0,j=0,width=0,length=0;//sta1æŒ‡ç¤ºæ˜¯å¦åº”è¯¥é€€å‡ºå¾ªç¯ 
+	Matrix* num=genmat(sem+1,lenlist(ptr)/(sem+1));//ç”Ÿæˆä¸€ä¸ªè¶³å¤Ÿå¤§çš„æ•°ç»„å­˜å‚¨æ•°å­— 
 	do{
-        if (ptr->str<='9'&&ptr->str>='0' ) {//¼ÇÂ¼Êı×Ö 
+        if (ptr->str<='9'&&ptr->str>='0' ) {//è®°å½•æ•°å­— 
             cnt=cnt*10+stnu(ptr->str);
             ptr=ptr->next;
            
         }
-        else if(ptr->str== ',' || ptr->str == ' '){//Óöµ½¶ººÅºÍ¿Õ¸ñ£¬ÈÏÎªÒ»¸öÊı×ÖÒÑ¾­ÍêÕûÊäÈë£¬Ğ´ÈëÊı×é£¬ÇåÁã¼ÆÊıÆ÷¡£ 
+        else if(ptr->str== ',' || ptr->str == ' '){//é‡åˆ°é€—å·å’Œç©ºæ ¼ï¼Œè®¤ä¸ºä¸€ä¸ªæ•°å­—å·²ç»å®Œæ•´è¾“å…¥ï¼Œå†™å…¥æ•°ç»„ï¼Œæ¸…é›¶è®¡æ•°å™¨ã€‚ 
         	num->matrix[i][j]=cnt;
         	j++;
         	cnt=0;
@@ -235,7 +236,7 @@ Matrix*scanm(){
 		 else if(ptr->str == '\n'){
 		 ptr=ptr->next;
 		 } 
-		else if(ptr->str==';'){//Óöµ½·ÖºÅ»»ĞĞ 
+		else if(ptr->str==';'){//é‡åˆ°åˆ†å·æ¢è¡Œ 
 			num->matrix[i][j]=cnt;
 			width=j+1;
 			length=i+1;
@@ -255,7 +256,7 @@ Matrix*scanm(){
 			}
 		
 		else{
-			printf("ÄãÑ¾µÄ£¬ÊäÉ¶ÄØ£¿"); }	
+			printf("ä½ ä¸«çš„ï¼Œè¾“å•¥å‘¢ï¼Ÿ"); }	
     }while ( sta!=1) ;
    // printm(num);
     Arr*a=randa(length);
@@ -266,7 +267,7 @@ Matrix*scanm(){
 	free(b);
 	return mat;
 }
-//´úÊıÓà×ÓÊ½ 
+//ä»£æ•°ä½™å­å¼ 
 Matrix* submat(int a,int b,Matrix* mat){
 	Matrix*sub=genmat(mat->length-1,mat->width-1);
 	for(int i=0,k=0;i<mat->length-1;i++,k++){
@@ -288,7 +289,7 @@ Matrix* submat(int a,int b,Matrix* mat){
 		return sub;	
 	}
 	
-//¼ÆËãĞĞÁĞÊ½ 
+//è®¡ç®—è¡Œåˆ—å¼ 
 int det(Matrix*mat,int ans){
 	if(mat->length>2){
         for(int i=0;i<mat->width;i++){
