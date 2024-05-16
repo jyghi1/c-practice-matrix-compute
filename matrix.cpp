@@ -296,14 +296,14 @@ Matrix* submat(Matrix* mat,int a,int b){
 		return sub;	
 	}
 //½»»»Á½ÐÐ
-Matrix* rowswap(matrix*mat,row1,row2){
-	int temp[matrix->width]={0};
+Matrix* rowswap(Matrix*mat,int row1,int row2){
+	int temp[mat->width]={0};
 	for(int i=0;i<mat->length;i++){
-		temp[i]=mat->matrix[a][i];
+		temp[i]=mat->matrix[row1][i];
 	}
 	for(int i=0;i<mat->length;i++){
-		mat->matrix[a][i]=mat->matrix[b][i];
-		mat->matrix[b][temp[i];
+		mat->matrix[row1][i]=mat->matrix[row2][i];
+		mat->matrix[row2][i]=temp[i];
 	}
 	return mat;
 } 
@@ -327,7 +327,7 @@ Matrix*rowopr(Matrix*A,int a,int b,double k){
 int det(Matrix*mat,int ans){
 	if(mat->length>2){
         for(int i=0;i<mat->width;i++){
-            Matrix* sub = submat(1,i+1,mat);
+            Matrix* sub = submat(mat,1,i+1);
             ans += mat->matrix[0][i] * det(sub,ans);
             Freemat(sub);
         }
