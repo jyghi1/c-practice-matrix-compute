@@ -219,7 +219,7 @@ Matrix*scanm(){
 	//printl(list);//test
 	// 
 	sta=0;
-	int cnt=0,i=0,j=0,width=0,length=0;//sta1指示是否应该退出循环 
+	int cnt=0,i=0,j=0,width=0,length=0,sta1=0;//sta指示是否应该退出循环 ,sta1指示是不是负数 
 	Matrix* num=genmat(sem+1,lenlist(ptr)/(sem+1));//生成一个足够大的数组存储数字 
 	do{
         if (ptr->str<='9'&&ptr->str>='0' ) {//记录数字 
@@ -228,10 +228,18 @@ Matrix*scanm(){
            
         }
         else if(ptr->str== ',' || ptr->str == ' '){//遇到逗号和空格，认为一个数字已经完整输入，写入数组，清零计数器。 
-        	num->matrix[i][j]=cnt;
-        	j++;
+        	if(sta1==1){
+        		cnt=cnt*(-1);
+        		sta1=0; 
+			};
+			num->matrix[i][j]=cnt;
+			j++;
         	cnt=0;
         	ptr=ptr->next;	
+		}
+		else if(ptr->str=='-'){
+        	sta1=1;
+        	ptr=ptr->next;
 		}
 		 else if(ptr->str == '\n'){
 		 ptr=ptr->next;
@@ -268,7 +276,7 @@ Matrix*scanm(){
 	return mat;
 }
 //代数余子式 
-Matrix* submat(int a,int b,Matrix* mat){
+Matrix* submat(Matrix* mat,int a,int b){
 	Matrix*sub=genmat(mat->length-1,mat->width-1);
 	for(int i=0,k=0;i<mat->length-1;i++,k++){
 			if(k==a-1){
@@ -287,8 +295,20 @@ Matrix* submat(int a,int b,Matrix* mat){
 		}
 		return sub;	
 	}
+//交换两行
+Matrix* rowswap(matrix*mat,row1,row2){
+	int temp[matrix->width]={0};
+	for(int i=0;i<mat->length;i++){
+		temp[i]=mat->matrix[a][i];
+	}
+	for(int i=0;i<mat->length;i++){
+		mat->matrix[a][i]=mat->matrix[b][i];
+		mat->matrix[b][temp[i];
+	}
+	return mat;
+} 
 //将矩阵的一行的k倍加到指定行 
-Matrix*rowopr(Matrix*A,int a,int b,int k){
+Matrix*rowopr(Matrix*A,int a,int b,double k){
 	for(int i=0;i<A->width;i++){
 		A->matrix[a][i]+=k*(A->matrix[b][i]);
 	}
@@ -319,14 +339,22 @@ int det(Matrix*mat,int ans){
 		return ans;
 	}
 	
+	
 }  
 //求行最简型 
 Matrix*ref(Matrix*mat){
 	Matrix*ret=genmat(mat->length,mat->width);
 	awritem(ret,mat);
-	for(int i=0;i<mat->width;i++){
-		for(int j=1;j<mat->length;j++){
-			rowopr(mat,j,i,-1.0*mat->matrix[j][i]/mat->matrix[i][i]);	
+	for(int i=0;i<mat->length-1;i++){
+		for(int j=i+1;j<mat->length;j++){
+			if(ret->matrix[i][i]==0){
+				rowswap(ret,i,i+1);
+			}
+			if(ret->matrix[j][i]==0){
+			}
+			else{
+				rowopr(ret,j,i,-1.0*ret->matrix[j][i]/ret->matrix[i][i]);
+			}
 		}
 	}
 	return ret; 	
@@ -335,7 +363,7 @@ Matrix*ref(Matrix*mat){
 
 int main(){
 	Matrix* A=scanm();
-	printf("%d",det(A,0));
+	printm(ref(A)) ;
 	return 0;
 } 
 
